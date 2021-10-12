@@ -2,6 +2,7 @@ package org.acme.resource;
 
 
 
+import javax.annotation.security.PermitAll;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -15,9 +16,11 @@ import org.acme.model.Usuario;
 public class UsuarioResource {
 	// funcao para inserir no DB
 	@POST
+	@PermitAll
 	@Transactional
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void inserir(Usuario usuario) {
+		
 		Usuario.persist(usuario); // anotacao de persist faz tudo ja. louco demais
 	}
 }

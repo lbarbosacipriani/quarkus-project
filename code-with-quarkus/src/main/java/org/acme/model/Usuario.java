@@ -6,10 +6,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import io.quarkus.security.User;
+import io.quarkus.security.jpa.Password;
+import io.quarkus.security.jpa.Roles;
+import io.quarkus.security.jpa.UserDefinition;
+import io.quarkus.security.jpa.Username;
 
 @Entity // representa um dado. 
-@UserDefinition // essa classe tem os metodos de usuario, como senha e tal. tem que ser unica e tem que ser JPA
+@UserDefinition  // essa classe tem os metodos de usuario, como senha e tal. tem que ser unica e tem que ser JPA
 public class Usuario  extends PanacheEntityBase{ // pode usar anotacoes do panache, que facilita interacao com o DB.
 
 	@Id
