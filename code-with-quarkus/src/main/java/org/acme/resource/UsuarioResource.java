@@ -21,6 +21,6 @@ public class UsuarioResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void inserir(Usuario usuario) {
 		
-		Usuario.persist(usuario); // anotacao de persist faz tudo ja. louco demais
+		Usuario.adiciona(usuario); // anotacao de persist faz tudo ja. louco demais
 	}
 }

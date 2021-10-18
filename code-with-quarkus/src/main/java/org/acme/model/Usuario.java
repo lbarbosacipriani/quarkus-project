@@ -5,6 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.wildfly.security.password.interfaces.BCryptPassword;
+
+import io.quarkus.elytron.security.common.BcryptUtil;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.quarkus.security.jpa.Password;
 import io.quarkus.security.jpa.Roles;
@@ -64,5 +67,20 @@ public class Usuario  extends PanacheEntityBase{ // pode usar anotacoes do panac
 	public void setRole(String role) {
 		this.role = role;
 	}
-
+	
+	public static void adiciona(Usuario usuario) { // encripto password
+		usuario.password = BcryptUtil.bcryptHash(usuario.password);
+		usuario.role=validarUsername(usuario.username);
+		usuario.persist();
+	}
+	
+	public static String validarUsername(String username) {
+		if(username.equals("admin")) {
+			return "admin";
+		
+		}else {
+			return "user";
+		}
+		
+	}
 }
