@@ -5,6 +5,7 @@ package org.acme.resource;
 import javax.annotation.security.PermitAll;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
@@ -22,5 +23,10 @@ public class UsuarioResource {
 	public void inserir(Usuario usuario) {
 		
 		Usuario.adiciona(usuario); // anotacao de persist faz tudo ja. louco demais
+	}
+	
+	@GET
+	public String get() {
+		return "esse funciona";
 	}
 }

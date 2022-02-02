@@ -2,30 +2,35 @@ package org.acme.resource;
 
 import java.time.LocalDate;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.SecurityContext;
 
 import org.acme.model.Ordem;
+import org.acme.service.OrdemService;
 
-import br.com.alura.repository.OrdemRepository;
-import io.quarkus.runtime.Application;
 
 @Path("/ordens")
 public class OrdemResource {
 
+	
 	@Inject
-	OrdemRepository ordemrepository;
+	OrdemService ordemservice;
 	
 	@POST
 	@Transactional
+	@RolesAllowed("user") // defino quem pode enviar ordens pela role so user no role	
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void inserir(Ordem ordem) {
-		ordem.setData(LocalDate.now());
-		ordem.setStatus("ENVIADA");
-		ordemrepository.persist(ordem);
+	public void inserir(@Context SecurityContext security,Ordem ordem) {
+		// validar userId com o user do usuario logado.
+		
+		ordemservice.inserir(security,ordem);
 	}
 }
